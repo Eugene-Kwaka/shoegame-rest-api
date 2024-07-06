@@ -28,14 +28,14 @@ ShoeGame is a Spring Boot-based API designed for creating and managing a catalog
 ShoeGame supports several operations, structured around user stories to enhance the management and tracking of shoe items:
 
 ### User Stories
-- **Create a New Item**: As a user, I can add a new shoe to the catalog.
-- **View All Items**: As a user, I can view a list of all shoes in the catalog.
-- **View a Single Item by ID**: As a user, I can view details of a specific shoe by its ID.
-- **Update an** Item**: As a user, I can update the properties of a shoe.
-- **Delete an Item by ID**: As a user, I can remove a shoe from the catalog by its ID.
+- **Create a new shoe item **: As a user, I can add a new shoe to the catalog.
+- **View all shoe time**: As a user, I can view a list of all shoes in the catalog.
+- **View a single shoe item by id**: As a user, I can view details of a specific shoe by its ID.
+- **Update a shoe item**: As a user, I can update the properties of a shoe.
+- **Delete a shoe item by ID**: As a user, I can remove a shoe from the catalog by its ID.
 - **User Account Creation**: As a user, I can create an account to manage my shoe items.
 - **Login**: As a user, I can log into my account.
-- **View Items by User**: As a user, I can view all shoes linked to my account.
+
 
 ### Optional Features
 - **Role-based Access Control**: Admin users can view all shoes, while standard users can only view their own.
