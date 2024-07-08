@@ -3,19 +3,14 @@ package com.eugene.shoegame.services.impl;
 import com.eugene.shoegame.dto.ShoeDTO;
 import com.eugene.shoegame.entities.ShoeEntity;
 import com.eugene.shoegame.entities.UserEntity;
-import com.eugene.shoegame.exceptions.shoeexceptions.ResourceNotFoundException;
+import com.eugene.shoegame.exceptions.shoeexceptions.*;
 import com.eugene.shoegame.repositories.ShoeRepository;
 import com.eugene.shoegame.repositories.UserRepository;
 import com.eugene.shoegame.services.ShoeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -89,7 +84,7 @@ public class ShoeServiceImplTest {
 
         ShoeEntity savedShoe = shoeRepository.save(shoeEntity);
 
-        ShoeDTO foundShoe = shoeService.getShoeById(testUser.getUserId(), savedShoe.getId());
+        ShoeDTO foundShoe = shoeService.getShoeByUser(testUser.getUserId(), savedShoe.getId());
 
         assertNotNull(foundShoe);
         assertEquals(savedShoe.getId(), foundShoe.getId());
@@ -105,8 +100,8 @@ public class ShoeServiceImplTest {
     public void testShoeByIdNotFound(){
         Long wrongShoeId = 200L;
 
-        assertThrows(ResourceNotFoundException.class, () ->{
-            shoeService.getShoeById(testUser.getUserId(), wrongShoeId);
+        assertThrows(ShoeNotFoundException.class, () ->{
+            shoeService.getShoeByUser(testUser.getUserId(), wrongShoeId);
         });
     }
 
