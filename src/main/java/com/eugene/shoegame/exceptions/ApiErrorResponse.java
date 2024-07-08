@@ -1,4 +1,4 @@
-package com.eugene.shoegame.exceptions.shoeexceptions;
+package com.eugene.shoegame.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

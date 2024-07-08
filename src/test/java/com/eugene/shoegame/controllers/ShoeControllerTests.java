@@ -1,11 +1,10 @@
 package com.eugene.shoegame.controllers;
 
 import com.eugene.shoegame.dto.ShoeDTO;
-import com.eugene.shoegame.exceptions.shoeexceptions.ResourceNotFoundException;
+import com.eugene.shoegame.exceptions.shoeexceptions.ShoeNotFoundException;
 import com.eugene.shoegame.services.ShoeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -89,7 +88,7 @@ public class ShoeControllerTests {
                 .userId(USER_ID)
                 .build();
 
-        when(shoeService.getShoeById(USER_ID, SHOE_ID)).thenReturn(shoeDTO);
+        when(shoeService.getShoeByUser(USER_ID, SHOE_ID)).thenReturn(shoeDTO);
 
         mockMvc.perform(get("/shoegame/users/{userId}/shoes/{id}", USER_ID, SHOE_ID))
                 .andExpect(status().isOk())
@@ -105,8 +104,8 @@ public class ShoeControllerTests {
 
     @Test
     void testGetShoeById_NotFound() throws Exception {
-        when(shoeService.getShoeById(USER_ID, SHOE_ID))
-                .thenThrow(new ResourceNotFoundException("Shoe not found"));
+        when(shoeService.getShoeByUser(USER_ID, SHOE_ID))
+                .thenThrow(new ShoeNotFoundException("Shoe not found"));
 
         mockMvc.perform(get("/shoegame/users/{userId}/shoes/{id}", USER_ID, SHOE_ID))
                 .andExpect(status().isNotFound())
@@ -178,7 +177,7 @@ public class ShoeControllerTests {
                 .build();
 
         when(shoeService.updateShoe(eq(USER_ID), eq(SHOE_ID), any(ShoeDTO.class)))
-                .thenThrow(new ResourceNotFoundException("Shoe not found"));
+                .thenThrow(new ShoeNotFoundException("Shoe not found"));
 
         mockMvc.perform(put("/shoegame/users/{userId}/shoes/{id}", USER_ID, SHOE_ID)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -199,7 +198,7 @@ public class ShoeControllerTests {
 
     @Test
     void testDeleteShoe_NotFound() throws Exception {
-        doThrow(new ResourceNotFoundException("Shoe not found"))
+        doThrow(new ShoeNotFoundException("Shoe not found"))
                 .when(shoeService).deleteShoe(USER_ID, SHOE_ID);
 
         mockMvc.perform(delete("/shoegame/users/{userId}/shoes/{id}", USER_ID, SHOE_ID))
