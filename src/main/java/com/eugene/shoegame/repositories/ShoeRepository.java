@@ -17,7 +17,7 @@ public interface ShoeRepository extends JpaRepository<ShoeEntity, Long> {
 
     //@Query("SELECT s FROM ShoeEntity s")
     // Find all shoes that have been created. Can be accessed by a guest user.
-    List<ShoeEntity> findAll();
+    //List<ShoeEntity> findAll();
 
     // Find a shoe by its id and the id of the user it belongs to.
     // The Optional return type handles cases where no shoe is found with the specified shoe ID and User ID.

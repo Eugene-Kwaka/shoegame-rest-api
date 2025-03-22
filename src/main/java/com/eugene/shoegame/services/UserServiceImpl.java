@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service // This class is marked as a Spring
 public class UserServiceImpl implements UserService{
@@ -147,6 +148,10 @@ public class UserServiceImpl implements UserService{
 
 
     private UserEntity convertUserDTOToUserEntity(UserDTO userDTO){
+        if (userDTO == null) {
+            //throw new UserNotFoundException("User not found");
+            return new UserEntity();
+        }
         return UserEntity.builder()
                 .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
@@ -155,7 +160,8 @@ public class UserServiceImpl implements UserService{
 
     private UserDTO convertUserEntityToUserDTO(UserEntity userEntity) {
         if (userEntity == null) {
-            throw new UserNotFoundException("User not found");
+            //throw new UserNotFoundException("User not found");
+            return new UserDTO();
         }
         return UserDTO.builder()
                 .userId(userEntity.getUserId())
@@ -163,6 +169,16 @@ public class UserServiceImpl implements UserService{
                 .password(userEntity.getPassword())
                 .build();
 
+//    private Optional<UserDTO> convertUserEntityToUserDTO(UserEntity userEntity) {
+//        if (userEntity == null) {
+//            return Optional.empty();
+//        }
+//        return Optional.of(UserDTO.builder()
+//                .userId(userEntity.getUserId())
+//                .username(userEntity.getUsername())
+//                .password(userEntity.getPassword())
+//                .build());
+//    }
 
         /* Alternatively, I could also consider returning an Optional<UserDTO> instead of throwing an exception.
          - This would allow the caller to handle the absence of a user in a more flexible way:

@@ -1,9 +1,10 @@
 package com.eugene.shoegame.controllers;
 
 
+import com.eugene.shoegame.services.UserService;
 import com.eugene.shoegame.dto.UserDTO;
 import com.eugene.shoegame.exceptions.userexceptions.*;
-import com.eugene.shoegame.services.UserService;
+
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/shoegame/users")
+@RequestMapping("/api/v2/shoegame/users")
 public class UserController {
 
     private final UserService userService;
@@ -25,7 +26,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO){
 
         try{
@@ -99,10 +100,5 @@ public class UserController {
             throw new UserDeletionFailedException("Failed to delete user");
         }
     }
-
-
-
-
-
 
 }

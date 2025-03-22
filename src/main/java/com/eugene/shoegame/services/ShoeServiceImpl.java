@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service //  marks the class as a service component in Spring's component scanning.
-public class ShoeServiceImpl implements ShoeService {
+public class  ShoeServiceImpl implements ShoeService {
 
     // Added as a dependency using Constructor injection.
     private final ShoeRepository shoeRepository;
@@ -194,12 +194,5 @@ public class ShoeServiceImpl implements ShoeService {
                 .color(shoeDTO.getColor())
                 .price(shoeDTO.getPrice())
                 .build();
-
-//        // Update the existing shoe with new values using the setter methods.
-//        shoeEntity.setName(shoeDTO.getName());
-//        shoeEntity.setSize(shoeDTO.getSize());
-//        shoeEntity.setBrand(shoeDTO.getBrand());
-//        shoeEntity.setColor(shoeDTO.getColor());
-//        shoeEntity.setPrice(shoeDTO.getPrice());
     }
 }

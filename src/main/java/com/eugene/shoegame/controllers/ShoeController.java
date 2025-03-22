@@ -1,10 +1,11 @@
 package com.eugene.shoegame.controllers;
 
+import com.eugene.shoegame.services.ShoeService;
 import com.eugene.shoegame.dto.ShoeDTO;
 import com.eugene.shoegame.exceptions.shoeexceptions.*;
 import com.eugene.shoegame.exceptions.userexceptions.UserNotAuthorizedException;
 import com.eugene.shoegame.exceptions.userexceptions.UserNotFoundException;
-import com.eugene.shoegame.services.ShoeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,24 +15,26 @@ import java.util.List;
 
 @RestController // marks the class as a RESTful web service controller.
 //  specifies the base URL for all methods in this controller.
-@RequestMapping("/shoegame")
+@RequestMapping("/api/v2/shoegame")
 public class ShoeController {
 
     // Injecting the ShoeService interface a dependency for the ShoeController class using Constructor injection.
     // We will be implementing the ShoeService interface methods in this class.
-    private final ShoeService shoeService;
+    private final ShoeService shoeService; 
 
     @Autowired // marks the ShoeService interface as a dependency for our controller class.
     public ShoeController(ShoeService shoeService){
         this.shoeService = shoeService;
     }
 
-    @PostMapping("/users/{userId}/shoes") /* maps POST request to the controller method.
+    @PostMapping("/users/{userId}/shoes")
+    /* maps POST request to the controller method.
     - Adding the @PathVariable {userId} injects the userId path variable from the URL.
     - We are adding it to our method because only a registered user can create a shoe item.
     - The @RequestBody defines that a JSON body to be included in the request body. The body defines the shoeDTO object's details.
     */
     public ResponseEntity<ShoeDTO> createShoe(@PathVariable Long userId, @RequestBody ShoeDTO shoeDTO){
+
         try{
             // the shoeService.createShoe() method is called and returns a shoeDTO object.
             // The object is then saved in a createdShoeDTO object which will be returned as a res

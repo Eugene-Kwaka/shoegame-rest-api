@@ -26,14 +26,16 @@ public class ShoeEntity {
     private String color;
     private Double price;
 
-    /*This annotation specifies a many-to-one relationship between ShoeEntity and UserEntity.
-    It means that a shoe belongs to one user, and a user can have many shoes.
-    The fetch = FetchType.LAZY part specifies that the related UserEntity should be loaded lazily,
-    meaning it will only be loaded when it is actually needed.
+    /**
+     * This annotation specifies a many-to-one relationship between ShoeEntity and UserEntity.
+     * It means that a shoe belongs to one user, and a user can have many shoes.
+     * The fetch = FetchType.LAZY part specifies that the related UserEntity should be loaded lazily, meaning it will only be loaded when it is actually needed.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    /*This annotation specifies the foreign key column in the database that links a shoe to its user.
-     The nullable = false part means that a shoe must always be associated with a user.*/
+    /**
+     * This annotation specifies the foreign key column in the database that links a shoe to its user.
+     * The nullable = false part means that a shoe must always be associated with a user.
+     * */
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
 
