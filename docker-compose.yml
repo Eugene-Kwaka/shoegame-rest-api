@@ -1,0 +1,56 @@
+services:
+
+
+  shoegame:
+    container_name: shoegamev2_app
+    image: eugenekwaka/shoegame:v2
+    environment:
+      - db_url=jdbc:postgresql://postgres:5432/shoegame_v2
+      - db_username=postgres
+      - db_password=root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - shoegamev2-network
+    restart: unless-stopped
+
+  postgres:
+    container_name: shoegamev2_DB
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      PGDATA: /data/postgres
+    volumes:
+      - shoegamev2_DB:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - shoegamev2-network
+    restart: unless-stopped
+
+
+  pgadmin:
+    container_name: shoegamev2_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - shoegamev2_pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - shoegamev2-network
+    restart: unless-stopped
+
+networks:
+  shoegamev2-network:
+    driver: bridge
+
+volumes:
+  shoegamev2_DB:
+  shoegamev2_pgadmin:
