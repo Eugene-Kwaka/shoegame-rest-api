@@ -1,6 +1,4 @@
 services:
-
-
   shoegame:
     container_name: shoegamev2_app
     image: eugenekwaka/shoegame:v2
@@ -26,7 +24,7 @@ services:
     volumes:
       - shoegamev2_DB:/data/postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - shoegamev2-network
     restart: unless-stopped
