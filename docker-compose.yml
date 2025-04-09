@@ -16,7 +16,7 @@ services:
 
   postgres:
     container_name: shoegamev2_DB
-    image: postgres
+    image: postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
@@ -24,7 +24,7 @@ services:
     volumes:
       - shoegamev2_DB:/data/postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
     networks:
       - shoegamev2-network
     restart: unless-stopped
@@ -32,7 +32,7 @@ services:
 
   pgadmin:
     container_name: shoegamev2_pgadmin
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
