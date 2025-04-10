@@ -1,11 +1,10 @@
+
 services:
   shoegame:
     container_name: shoegamev2_app
     image: eugenekwaka/shoegame:v2
     environment:
-      - db_url=jdbc:postgresql://postgres:5432/shoegame_v2
-      - db_username=postgres
-      - db_password=root
+      - SPRING_PROFILES_ACTIVE=docker
     ports:
       - "8080:8080"
     depends_on:
@@ -24,11 +23,10 @@ services:
     volumes:
       - shoegamev2_DB:/data/postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Host:Container — avoids conflict with dev postgres
     networks:
       - shoegamev2-network
     restart: unless-stopped
-
 
   pgadmin:
     container_name: shoegamev2_pgadmin
@@ -40,7 +38,7 @@ services:
     volumes:
       - shoegamev2_pgadmin:/var/lib/pgadmin
     ports:
-      - "5050:80"
+      - "5100:80"  # Host:Container — avoids conflict with dev pgAdmin
     networks:
       - shoegamev2-network
     restart: unless-stopped
